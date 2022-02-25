@@ -1,4 +1,4 @@
-package com.ecommerce.exceptions;
+package com.ecommerce.exceptions.user;
 
 public class UserException extends RuntimeException {
 

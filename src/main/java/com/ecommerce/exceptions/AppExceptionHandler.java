@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
+import com.ecommerce.exceptions.user.UserException;
 import com.ecommerce.responses.ErrorMessage;
 
 

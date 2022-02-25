@@ -72,7 +72,8 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
 		UserDto userDto = userService.getUser(userName);
 
-		String token = Jwts.builder().setSubject(userName).claim("id", userDto.getUserId())
+		String token = Jwts.builder().setSubject(userName)
+				.claim("id", userDto.getUserId())
 				.claim("name", userDto.getFirstName() + " " + userDto.getLastName())
 				.setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
 				.signWith(SignatureAlgorithm.HS512, SecurityConstants.TOKEN_SECRET).compact();

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ecommerce.exceptions.UserException;
+import com.ecommerce.exceptions.user.UserException;
 import com.ecommerce.requests.user.UserRequest;
 import com.ecommerce.responses.user.UserErrorMessages;
 import com.ecommerce.responses.user.UserResponse;
@@ -64,6 +64,8 @@ public class UserController {
 		UserDto createUser = userService.createUser(userDto);
 
 		UserResponse userResponse = modelMapper.map(createUser, UserResponse.class);
+		
+		
 
 		return new ResponseEntity<UserResponse>(userResponse, HttpStatus.CREATED);
 	}

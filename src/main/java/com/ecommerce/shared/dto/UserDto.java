@@ -1,7 +1,6 @@
 package com.ecommerce.shared.dto;
 
 import java.io.Serializable;
-import java.util.List;
 
 import lombok.Data;
 
@@ -25,7 +24,7 @@ public class UserDto implements Serializable {
 	private String encryptedPassword;
 	private String emailVerificationToken;
 	private Boolean emailVerificationStatus = false;
-	private List<AddressDto> addresses;
-	private ContactDto contact;
+//	private List<AddressDto> addresses;
+//	private ContactDto contact;
 
 }

@@ -1,6 +1,5 @@
 package com.ecommerce.requests.user;
 
-import java.util.List;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -36,9 +35,9 @@ public class UserRequest {
 	@Pattern(regexp = "(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$", message = "ce  mot de pass doit avoir correct format")
 	private String password;
 
-	private Boolean admin;
+//	private Boolean admin;
 
-	private List<AddressRequest> addresses;
+//	private List<AddressRequest> addresses;
 
-	private ContactRequest contact;
+//	private ContactRequest contact;
 }

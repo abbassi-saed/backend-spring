@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,15 +21,23 @@ import com.ecommerce.entities.UserEntity;
 import com.ecommerce.repositories.user.UserRepository;
 import com.ecommerce.services.user.UserService;
 import com.ecommerce.shared.Utils;
-import com.ecommerce.shared.dto.AddressDto;
+
 import com.ecommerce.shared.dto.UserDto;
 
+import lombok.Data;
+
 @Service
+@Data
 public class UserServiceImp implements UserService {
+
 
 	@Autowired
 	UserRepository userRepository;
 
+
+	@Autowired
+	JavaMailSender  mail ;
+	
 	@Autowired
 	Utils util;
 
@@ -43,17 +53,17 @@ public class UserServiceImp implements UserService {
 		if (check != null)
 			throw new RuntimeException("user Already Exist");
 
-		for (int i = 0; i < user.getAddresses().size(); i++) {
-
-			AddressDto address = user.getAddresses().get(i);
-			address.setUser(user);
-			address.setAddressId(util.generateStringId(30));
-			user.getAddresses().set(i, address);
-
-		}
-
-		user.getContact().setContactId(util.generateStringId(30));
-		user.getContact().setUser(user);
+//		for (int i = 0; i < user.getAddresses().size(); i++) {
+//
+//			AddressDto address = user.getAddresses().get(i);
+//			address.setUser(user);
+//			address.setAddressId(util.generateStringId(30));
+//			user.getAddresses().set(i, address);
+//
+//		}
+//
+//		user.getContact().setContactId(util.generateStringId(30));
+//		user.getContact().setUser(user);
 
 		ModelMapper modelMapper = new ModelMapper();
 
@@ -66,6 +76,21 @@ public class UserServiceImp implements UserService {
 
 		UserDto userDto = modelMapper.map(newUser, UserDto.class);
 
+//		emailSenderService.sendSimpleEmail(, ,);
+
+		
+		SimpleMailMessage message = new SimpleMailMessage();
+
+		message.setFrom("simox.matrix@gmail.com");
+		message.setTo(user.getEmail());
+		message.setText("Bonjour, "+user.getLastName()+"\r\n"
+				+ "Veuillez trouvez ci-dessous les éléments nécessaire pour l’accès à votre compte sur notre système \r\n"
+				+ "Nom d'utlisateur :"+user.getEmail()+"\r\n"
+				+ "Mot de passe :"+user.getPassword());
+		message.setSubject("Informaton d'authentification");
+		
+		mail.send(message);
+		System.out.println("Mail Send...");
 		return userDto;
 	}
 
